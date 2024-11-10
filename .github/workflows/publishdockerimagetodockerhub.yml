@@ -10,9 +10,9 @@
 name: Publish Docker image to Docker Hub for .NET 8, OpenCVSharp4 and .NET Aspire
 
 on:
-  push:
-    branches:
-      - release
+  release:
+    types: [published]
+  workflow_dispatch:
 
 jobs:
   push_to_registry:
