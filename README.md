@@ -99,6 +99,8 @@ The **[Aspire and Blazor Demo deploy to Azure page](./docs/blazordemo.md)** has 
 
 The Aspire and Blazor demo content also check the **[Deploy Troubleshooting Guide](./docs/blazordemo.md#troubleshooting)**.
 
+There is an online video describing the deploy to Azure process: **[Step-by-Step .NET AI Video Analyzer repo on Azure + Troubleshooting Tips](https://www.youtube.com/watch?v=__SbkecimSU)**.
+
 
 ## Run sample projects
 

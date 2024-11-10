@@ -111,6 +111,19 @@ Reset the API Service Ingress configuration following these steps:
 
 - Restart the Container App.
 
+### Deploy process can't access to Docker Hub
+
+If the `azd up` process can't access to the remote repository to build the apiservice project, you need to check if the local machine can access to the docker hub. 
+
+Login and check from the command line using the steps described [docker login](https://docs.docker.com/reference/cli/docker/login/).
+
+### Validate Azure OpenAI roles
+
+Validate that your user have the correct [Azure OpenAI roles](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/role-based-access-control#azure-openai-roles) in the Resource Group, or at the Subscription Level.
+
+Once the rigth roles assigned, the user should have a list similar to this one:
+
+![User with the correct role assignments](../images/76AzureAssigments.png)
 
 ### CORS
 
@@ -125,14 +138,6 @@ Enable CORS in the API Service following these steps:
 - Stop and Start the Container App.
 
   ![Blazor Demo](../images/75ApiServiceEnableCors.png)
-
-### Validate Azure OpenAI roles
-
-Validate that your user have the correct [Azure OpenAI roles](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/role-based-access-control#azure-openai-roles) in the Resource Group, or at the Subscription Level.
-
-Once the rigth roles assigned, the user should have a list similar to this one:
-
-![User with the correct role assignments](../images/76AzureAssigments.png)
 
 ## ApiService Base Image for Azure Container Apps
 
