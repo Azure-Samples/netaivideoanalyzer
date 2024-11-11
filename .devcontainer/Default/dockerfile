@@ -19,7 +19,7 @@ RUN dotnet workload update
 RUN dotnet workload install aspire
 
 # install Azure CLI
-RUN curl -L https://aka.ms/InstallAzureCli | bash
+# RUN curl -L https://aka.ms/InstallAzureCli | bash
 
 # Expose ports
 EXPOSE 5000
