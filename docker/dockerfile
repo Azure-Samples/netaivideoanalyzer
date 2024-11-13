@@ -8,13 +8,22 @@ WORKDIR /workspace
 # Copy the current directory contents into the container at /workspace
 COPY . /workspace
 
-# Install cURL
+# Install cURL and wget
 RUN apt-get update && apt-get install -y curl
+RUN apt-get update && apt-get install -y wget
 
-RUN apt-get update && \
-    apt-get install -y dotnet-sdk-9.0
+# NET 8
+RUN apt-get update && apt-get install -y dotnet-sdk-8.0
 
-# Install the .NET workloads
+# NET 9
+RUN wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh 
+RUN chmod +x ./dotnet-install.sh
+RUN ./dotnet-install.sh --version latest
+
+RUN echo 'dotnet installation done!'
+RUN dotnet --version
+
+# # Install the .NET workloads
 RUN dotnet workload update
 RUN dotnet workload install aspire
 
