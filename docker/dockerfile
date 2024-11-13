@@ -12,7 +12,7 @@ COPY . /workspace
 RUN apt-get update && apt-get install -y curl
 
 RUN apt-get update && \
-    apt-get install -y dotnet-sdk-8.0
+    apt-get install -y dotnet-sdk-9.0
 
 # Install the .NET workloads
 RUN dotnet workload update
@@ -22,8 +22,8 @@ RUN dotnet workload install aspire
 # RUN curl -L https://aka.ms/InstallAzureCli | bash
 
 # Expose ports
-EXPOSE 5000
-EXPOSE 5001
+# EXPOSE 5000
+# EXPOSE 5001
 
 # Define the entry point for the container
 CMD ["dotnet", "run"]

@@ -1,11 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net9.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<ContainerRepository>canetregistry.azurecr.io</ContainerRepository>
-		<ContainerBaseImage>canetregistry.azurecr.io/elbruno/ubuntu22-dotnet8-opencv4.7.0:latest</ContainerBaseImage>
+		<ContainerBaseImage>elbruno/ubuntu22-dotnet9-opencv4.7.0:latest</ContainerBaseImage>
 		<EnableSdkContainerSupport>true</EnableSdkContainerSupport>
 		<IsPackable>true</IsPackable>
 		<UserSecretsId>cbb08ebd-2519-4744-b9e3-7b570e852892</UserSecretsId>
