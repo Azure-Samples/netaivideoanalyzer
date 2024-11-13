@@ -145,6 +145,20 @@ Installed with the [Visual Studio installer](https://learn.microsoft.com/en-us/d
 - An OCI compliant container runtime, such as:
   * [Docker Desktop](https://www.docker.com/products/docker-desktop/) or [Podman](https://podman.io/).
 
+This is an example of the user secrets you need to set for the AppHost project:
+
+```json
+User Secrets for AppHost
+{
+  "Azure:Location": "eastus2",
+  "Azure:ResourceGroup": "rg-visionapiservice",
+  "Azure:TenantId": "< tenant id >",
+  "Azure:SubscriptionId": "< subscription id >",
+  "Azure:AllowResourceGroupCreation": true,
+  "Azure:CredentialSource": "AzureCli",
+}
+```
+
 ### Run GitHub Models samples
 
 To run the sample using GitHub Models, located in `./src/ConsoleMEAI-05-GitHubModels`.
