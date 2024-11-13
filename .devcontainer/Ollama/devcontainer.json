@@ -3,7 +3,7 @@
 {
 	"name": "C# (.NET) - Ollama",
     "build": {
-        "dockerfile": "dockerfile"
+        "dockerfile": "../../docker/dockerfile"
     },
 	"customizations": {
 		"vscode": {
