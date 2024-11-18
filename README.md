@@ -77,13 +77,19 @@ Once you've opened the project in [Codespaces](#run-in-github-codespaces), or [l
 
 From a Terminal window, open the folder with the clone of this repo and run the following commands.
 
+1. Login to docker:
+
+    ```shell
+    docker login
+    ```
+    
 1. Login to Azure:
 
     ```shell
     azd auth login
     ```
 
-2. Provision and deploy all the resources:
+1. Provision and deploy all the resources:
 
     ```shell
     azd up
