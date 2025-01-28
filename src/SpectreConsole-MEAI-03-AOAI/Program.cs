@@ -85,7 +85,7 @@ await AnsiConsole.Live(tableImageAnalysis)
         for (int i = 0; i < frames.Count; i += step)
         {
             // save the frame to the "data/frames" folder
-            string framePath = Path.Combine(dataFolderPath, "frames", $"{i}.jpg");
+            string framePath = Path.Combine(dataFolderPath, "frames", $"{i.ToString("D3")}.jpg");
             Cv2.ImWrite(framePath, frames[i]);
 
             // read the image bytes, create a new image content part and add it to the messages
