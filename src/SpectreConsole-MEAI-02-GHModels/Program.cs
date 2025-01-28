@@ -9,12 +9,12 @@ SpectreConsoleOutput.DisplayTitle("MEAI - GH Models");
 
 // define video file and data folder
 SpectreConsoleOutput.DisplayTitleH1("Video file and data folder");
-string videoFile = VideosHelper.GetVideoFilePathFireTruck();
+string videoFile = VideosHelper.GetVideoFilePathCar();
 string dataFolderPath = VideosHelper.CreateDataFolder();
 Console.WriteLine();
 
 var systemPrompt = PromptsHelper.SystemPrompt;
-var userPrompt = PromptsHelper.UserPromptDescribeVideo;
+var userPrompt = PromptsHelper.UserPromptInsuranceCarAnalysis;
 
 //////////////////////////////////////////////////////
 /// VIDEO ANALYSIS using OpenCV
@@ -51,12 +51,12 @@ SpectreConsoleOutput.DisplayTitleH1("Video Analysis using Microsoft.Extensions.A
 // get the GitHub token from the environment variables or user secrets
 // the GitHub token is used to authenticate the GitHub Models API 
 // when the project is running in CodeSpaces
-var gh_token = System.Environment.GetEnvironmentVariable("GITHUB_TOKEN");
+var github_token = System.Environment.GetEnvironmentVariable("GITHUB_TOKEN");
 
-if(string.IsNullOrEmpty(gh_token))
+if(string.IsNullOrEmpty(github_token))
 {
     var config = new ConfigurationBuilder().AddUserSecrets<Program>().Build();
-    gh_token = config["GH_TOKEN"];
+    github_token = config["GITHUB_TOKEN"];
 }
 
 IChatClient chatClient =

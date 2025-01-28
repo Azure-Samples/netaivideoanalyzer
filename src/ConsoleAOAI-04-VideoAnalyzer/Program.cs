@@ -65,7 +65,8 @@ Console.WriteLine($"Get 1 frame every [{step}] to get the [{PromptsHelper.Number
 for (int i = 0; i < frames.Count; i += step)
 {
     // save the frame to the "data/frames" folder
-    string framePath = Path.Combine(dataFolderPath, "frames", $"{i}.jpg");
+    // the i name should have 3 characters and fill with zero to the left
+    string framePath = Path.Combine(dataFolderPath, "frames", $"{i.ToString("D3")}.jpg");
     Cv2.ImWrite(framePath, frames[i]);
 
     // read the image bytes, create a new image content part and add it to the messages

@@ -5,7 +5,7 @@ using Microsoft.Extensions.AI;
 
 
 // define video file and data folder
-string videoFile = VideosHelper.GetVideoFilePathFireTruck();
+string videoFile = VideosHelper.GetVideoFilePathCar();
 string dataFolderPath = VideosHelper.CreateDataFolder();
 
 //////////////////////////////////////////////////////
@@ -43,7 +43,7 @@ IChatClient chatClient =
 List<ChatMessage> messages =
 [
     new ChatMessage(ChatRole.System, PromptsHelper.SystemPrompt),
-    new ChatMessage(ChatRole.User, PromptsHelper.UserPromptDescribeVideo),
+    new ChatMessage(ChatRole.User, PromptsHelper.UserPromptInsuranceCarAnalysis),
 ];
 
 // create the OpenAI files that represent the video frames
