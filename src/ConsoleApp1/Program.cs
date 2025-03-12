@@ -90,6 +90,6 @@ var numberOfFrames = 15;
 //}
 
 //// send the messages to the assistant
-//var response = await chatClient.CompleteAsync(messages);
+//var response = await chatClient.GetResponseAsync(messages);
 
-//Console.WriteLine(response.Message);
+//Console.WriteLine(response);

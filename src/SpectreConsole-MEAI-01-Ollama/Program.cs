@@ -80,7 +80,7 @@ await AnsiConsole.Live(tableImageAnalysis)
             Cv2.ImWrite(framePath, frames[i]);
 
             // read the image bytes, create a new image content part and add it to the messages
-            AIContent aic = new ImageContent(File.ReadAllBytes(framePath), "image/jpeg");
+            AIContent aic = new DataContent(File.ReadAllBytes(framePath), "image/jpeg");
             List<ChatMessage> messages =
             [
                 new ChatMessage(ChatRole.User, @$"The image represents a frame of a video. Describe the image in a single sentence for the frame Number: [{i}]
@@ -102,8 +102,8 @@ Frame 3: The image shows a car's speedometer and odometer, indicating a speed of
              ];
             // send the messages to the assistant            
             stopwatch.Restart();
-            var imageAnalysis = await chatClientImages.CompleteAsync(messages);
-            var imageAnalysisResponse = $"{imageAnalysis.Message.Text}\n";
+            var imageAnalysis = await chatClientImages.GetResponseAsync(messages);
+            var imageAnalysisResponse = $"{imageAnalysis.Text}\n";
             imageAnalysisResponses.Add(imageAnalysisResponse);
             stopwatch.Stop();
             var elapsedTime = stopwatch.Elapsed;
@@ -134,9 +134,9 @@ SpectreConsoleOutput.DisplayTitleH3("Start build prompt done!");
 SpectreConsoleOutput.DisplayTitleH2("Start video analysis using LLM");
 
 // send the messages to the assistant
-var response = await chatClient.CompleteAsync(userPrompt);
+var response = await chatClient.GetResponseAsync(userPrompt);
 
-var panelResponse = new Panel(response.Message.ToString())
+var panelResponse = new Panel(response.Text)
 {
     Header = new PanelHeader("MEAI Chat Client using Ollama Response")
 };
@@ -147,5 +147,5 @@ var userPromptJson = $"{PromptsHelper.UserPromptInsuranceCarAnalysisOllamaJSON}\
 SpectreConsoleOutput.DisplayTitleH2("Start video analysis using LLM");
 
 // send the messages to the assistant
-var responseJson = await chatClient.CompleteAsync(userPromptJson);
-Console.Write(responseJson.Message.ToString());
+var responseJson = await chatClient.GetResponseAsync(userPromptJson);
+Console.Write(responseJson.Text);
