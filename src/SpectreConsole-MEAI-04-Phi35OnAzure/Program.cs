@@ -1,10 +1,10 @@
-﻿using OpenCvSharp;
-using Microsoft.Extensions.AI;
-using Spectre.Console;
-using System.Diagnostics;
-using Microsoft.Extensions.Configuration;
+﻿using System.Diagnostics;
 using Azure;
 using Azure.AI.Inference;
+using Microsoft.Extensions.AI;
+using Microsoft.Extensions.Configuration;
+using OpenCvSharp;
+using Spectre.Console;
 
 SpectreConsoleOutput.DisplayTitle("OLLAMA & Phi3.5V");
 
@@ -56,12 +56,12 @@ var apiKeyChat = config["AZURE_PHI35_KEY"];
 var credentialVision = new AzureKeyCredential(apiKeyVision);
 IChatClient chatClientImageAnalyzer = new ChatCompletionsClient(
         endpoint: new Uri(endpointVision), 
-        credential: credentialVision).AsChatClient(modelIdVision);
+        credential: credentialVision).AsIChatClient(modelIdVision);
 
 var credentialChat = new AzureKeyCredential(apiKeyChat);
 IChatClient chatClient = new ChatCompletionsClient(
         endpoint: new Uri(endpointChat),
-        credential: credentialChat).AsChatClient(modelIdChat);
+        credential: credentialChat).AsIChatClient(modelIdChat);
 
 
 
@@ -91,7 +91,7 @@ await AnsiConsole.Live(tableImageAnalysis)
             Cv2.ImWrite(framePath, frames[i]);
 
             // read the image bytes, create a new image content part and add it to the messages
-            AIContent aic = new ImageContent(File.ReadAllBytes(framePath), "image/jpeg");
+            AIContent aic = new DataContent(File.ReadAllBytes(framePath), "image/jpeg");
             List<ChatMessage> messages =
             [
                 new ChatMessage(Microsoft.Extensions.AI.ChatRole.User, @$"The image represents a frame of a video. Describe the image in a single paragraph, including all the car reference details, i for the frame Number: [{i}]. If there is car information like license number, milleage, color, make, model, year, etc., include it in the paragraph. Also include and details car damage if present in the analyzed image."),
@@ -99,8 +99,8 @@ await AnsiConsole.Live(tableImageAnalysis)
              ];
             // send the messages to the assistant            
             stopwatch.Restart();
-            var imageAnalysis = await chatClientImageAnalyzer.CompleteAsync(messages);
-            var imageAnalysisResponse = $"{imageAnalysis.Message.Text}\n";
+            var imageAnalysis = await chatClientImageAnalyzer.GetResponseAsync(messages);
+            var imageAnalysisResponse = $"{imageAnalysis.Text}\n";
             imageAnalysisResponses.Add(imageAnalysisResponse);
             stopwatch.Stop();
             var elapsedTime = stopwatch.Elapsed;
@@ -128,8 +128,8 @@ SpectreConsoleOutput.DisplayTitleH3("Start build prompt done!");
 SpectreConsoleOutput.DisplayTitleH2("Start video analysis using LLM");
 
 // send the messages to the assistant
-var response = await chatClient.CompleteAsync($"{userPrompt}\n{imageAnalysisResponseCollection}");
+var response = await chatClient.GetResponseAsync($"{userPrompt}\n{imageAnalysisResponseCollection}");
 
-var panelResponse = new Panel(response.Message.ToString());
+var panelResponse = new Panel(response.Text);
 panelResponse.Header = new PanelHeader("MEAI Chat Client using Phi-3.5 in Azure Response");
 AnsiConsole.Write(panelResponse);

@@ -89,7 +89,7 @@ await AnsiConsole.Live(tableImageAnalysis)
             Cv2.ImWrite(framePath, frames[i]);
 
             // read the image bytes, create a new image content part and add it to the messages
-            AIContent aic = new ImageContent(File.ReadAllBytes(framePath), "image/jpeg");
+            AIContent aic = new DataContent(File.ReadAllBytes(framePath), "image/jpeg");
             var message = new ChatMessage(Microsoft.Extensions.AI.ChatRole.User, [aic]);
             messages.Add(message);
 
@@ -108,18 +108,15 @@ SpectreConsoleOutput.DisplayTitleH1("Chat Client Response");
 
 // send the messages to the assistant
 var completeResponse = "";
-var response = chatClient.CompleteStreamingAsync(messages);
+var response = chatClient.GetStreamingResponseAsync(messages);
 
 // display the response
 SpectreConsoleOutput.DisplayTitleH3("Azure OpenAI response using Microsoft Extensions for AI");
 
 await foreach (var message in response)
 {
-    if (message.Contents.Count > 0)
-    {
-        AnsiConsole.Write(new Text(message.Contents[0].ToString()));
-        completeResponse += message.Contents[0].ToString();
-    }
+    AnsiConsole.Write(new Text(message.Text));
+    completeResponse += message.Text;
 }
 
 // validate if the complete response is a json object

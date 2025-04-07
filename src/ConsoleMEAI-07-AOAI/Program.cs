@@ -45,7 +45,8 @@ var credential = new ApiKeyCredential(apiKey);
 
 IChatClient chatClient =
     new AzureOpenAIClient(new Uri(endpoint),credential)
-            .AsChatClient(modelId: modelId);
+            .GetChatClient(modelId)
+            .AsIChatClient();
 
 List<ChatMessage> messages =
 [
@@ -68,13 +69,13 @@ for (int i = 0; i < frames.Count; i += step)
     Cv2.ImWrite(framePath, frames[i]);
 
     // read the image bytes, create a new image content part and add it to the messages
-    AIContent aic = new ImageContent(File.ReadAllBytes(framePath), "image/jpeg");
+    AIContent aic = new DataContent(File.ReadAllBytes(framePath), "image/jpeg");
     var message = new ChatMessage(ChatRole.User, [aic]);
     messages.Add(message);
 }
 
 // send the messages to the chat client
-var completionUpdates = chatClient.CompleteStreamingAsync(chatMessages: messages);
+var completionUpdates = chatClient.GetStreamingResponseAsync(messages: messages);
 
 // print the assistant responses
 Console.WriteLine($"\n[Azure OpenAI Services response using Microsoft Extensions for AI]: ");
