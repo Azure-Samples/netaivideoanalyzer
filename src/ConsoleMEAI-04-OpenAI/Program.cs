@@ -38,7 +38,8 @@ var openai_key = config["OPENAI_KEY"];
 
 IChatClient chatClient = 
     new OpenAIClient(apiKey: openai_key)
-    .AsChatClient("gpt-4o-mini");
+    .GetChatClient("gpt-4o-mini")
+    .AsIChatClient();
 
 List<ChatMessage> messages =
 [

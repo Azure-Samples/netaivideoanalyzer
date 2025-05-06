@@ -58,7 +58,8 @@ var credential = new ApiKeyCredential(apiKey);
 
 IChatClient chatClient =
     new AzureOpenAIClient(new Uri(endpoint), credential)
-            .AsChatClient(modelId: modelId);
+            .GetChatClient(modelId)
+            .AsIChatClient();
 
 List<ChatMessage> messages =
 [
