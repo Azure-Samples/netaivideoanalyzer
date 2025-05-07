@@ -38,7 +38,8 @@ var openai_key = config["OPENAI_KEY"];
 
 IChatClient chatClient = 
     new OpenAIClient(apiKey: openai_key)
-    .AsChatClient("gpt-4o-mini");
+    .GetChatClient("gpt-4o-mini")
+    .AsIChatClient();
 
 List<ChatMessage> messages =
 [
@@ -60,13 +61,13 @@ for (int i = 0; i < frames.Count; i += step)
     Cv2.ImWrite(framePath, frames[i]);
 
     // read the image bytes, create a new image content part and add it to the messages
-    AIContent aic = new ImageContent(File.ReadAllBytes(framePath), "image/jpeg");
+    AIContent aic = new DataContent(File.ReadAllBytes(framePath), "image/jpeg");
     var message = new ChatMessage(ChatRole.User, [aic]);
     messages.Add(message);
 }
 
 // send the messages to the assistant
-var response = await chatClient.CompleteAsync(messages);
+var response = await chatClient.GetResponseAsync(messages);
 
 Console.WriteLine($"\n[OpenAI APIs response using Microsoft Extensions for AI]: ");
-Console.WriteLine(response.Message);
+Console.WriteLine(response.Text);
